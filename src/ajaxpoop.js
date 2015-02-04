@@ -1,29 +1,3 @@
-function r(m,u,d,h,c){
-    return new Promise((resolve,rejext)=>{
-        let x  = new XMLHttpRequest();
-        x.open(m.toUpperCase(),u,true);
-        x.onreadystatechange((e)=>{
-            switch(x.readyState){
-                case 0:
-                case 1:
-                case 2:
-                case 3:
-                    break;
-                case 4:
-                    resolve(x);
-            }
-        });
-        if(h){
-            let ks=Object.keys(h);
-            ks.foreach((k)=>{
-                x.setRequestHeader(k,h[k]);
-            });
-        }
-        if(c) x.withCredentials=c;
-        if(d) x.send(d); else x.send();
-    });
-}
-
 class req{
     constructor(m,u){
         this.m = m;
@@ -44,23 +18,53 @@ class req{
         q[k]=v;
     }
     send(d){
-        return r(this.m,this.u,d,this.h,this.c);
+        return ((m,u,q,d,h,c)=>{
+            return new Promise((resolve,rejext)=>{
+                let x  = new XMLHttpRequest()
+                    ks, qry='';
+                x.onreadystatechange((e)=>{
+                    switch(x.readyState){
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                        break;
+                    case 4:
+                        resolve(x);
+                    }
+                });
+
+                ks=Object.keys(q).filter((j)=>{return q.hasOwnProperty(j);});
+                if(ks.length>0){
+                    qry+='?';
+                    ks.foreach((k)=>{
+                        qry+=k+'='+uriEncodeComponent(q[k]);
+                    });
+                }
+                ks=Object.keys(h).filter((j)=>{return q.hasOwnProperty(j);});
+                ks.foreach((k)=>{
+                    x.setRequestHeader(k,h[k]);
+                });
+                if(c) x.withCredentials=c;
+
+                x.open(m.toUpperCase(),u+q,true);
+                if(d) x.send(d); else x.send();
+            });
+        })(this.m, this.u, this.q, d, this.h, this.c);
     }
 }
 
-class P {
-    get(u){
+export default poop {
+    get:(u)=>{
         return new req('GET',u);
-    }
-    put(u){
+    },
+    put:(u)=>{
         return new req('PUT',u).header('Content-Type','application/json');
-    }
-    post(u){
+    },
+    post:(u)=>{
         return new req('POST',u).header('Content-Type','application/json');
-    }
-    delete(u){
+    },
+    delete:(u)=>{
         return new req('DELETE',u);
     }
-}
-
-export new P();
+};
