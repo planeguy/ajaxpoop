@@ -34,7 +34,9 @@ function r(m, u, d, h, c) {
         });
         if (c) x.withCredentials = c;
 
-        if (d) x.send(d);else x.send();
+        if (d) {
+            if (typeof d == "string") x.send(d);else x.send(JSON.stringify(d));
+        } else x.send();
     });
 }
 

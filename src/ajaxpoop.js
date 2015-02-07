@@ -2,7 +2,7 @@ function r(m,u,d,h,c){
     return new Promise((resolve,rejext)=>{
         let x  = new XMLHttpRequest();
         x.open(m.toUpperCase(),u,true);
-        
+
         x.onreadystatechange=((e)=>{
             switch(x.readyState){
                 case 0:
@@ -25,7 +25,10 @@ function r(m,u,d,h,c){
         });
         if(c) x.withCredentials=c;
 
-        if(d) x.send(d); else x.send();
+        if(d){
+            if (typeof d == 'string') x.send(d);
+            else x.send(JSON.stringify(d));
+        } else x.send();
     });
 }
 
