@@ -3,7 +3,7 @@ function r(m,u,d,h,c){
     return new Promise((resolve,rejext)=>{
         let x  = new XMLHttpRequest();
         x.open(m.toUpperCase(),u,true);
-        
+
         //only care when we're done the rest of these can suck it
         x.onreadystatechange=((e)=>{
             switch(x.readyState){
@@ -43,7 +43,7 @@ class req{
         this.c = false;
     }
     header(k,v){
-        this.h.k=v; //add the (turtle)header map
+        this.h[k]=v; //add the (turtle)header map
         return this; //return itself for chaining
     }
     withCredentials(c){
@@ -67,7 +67,7 @@ class req{
         return r('DELETE', this.u, undefined, this.h, this.c); //promise drill
     }
     flush(){
-        return delete();
+        return this.delete();
     }
 }
 
