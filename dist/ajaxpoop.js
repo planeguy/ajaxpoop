@@ -29,8 +29,8 @@ function r(m,u,d,h,c){
         if(c) x.withCredentials=c;
 
         if(d){
-            if (typeof d == 'string') x.send(d);
-            else x.send(JSON.stringify(d));
+            if(h['Content-Type']=='application/json') x.send(JSON.stringify(d));
+            else x.send(d);
         } else x.send();
     });
 }
@@ -41,6 +41,7 @@ class req{
         this.u = u;
         this.h = {};
         this.c = false;
+        this.hack = {};
     }
     header(k,v){
         this.h[k]=v; //add the (turtle)header map
@@ -50,17 +51,22 @@ class req{
         this.c=c; //with cors credentials
         return this; //chain the poop
     }
+    hack(k,v){
+        this.hack[k]=v;
+        return this;
+    }
     get(){
         //return a promise
         return r('GET', this.u,  undefined, this.h, this.c);
     }
     put(d){
         //if you don't say so it's json. why would you send anything else seriously
-        if(!this.h['Content-Type']) this.h['Content-Type']='application/json';
+        //unless you're chome and can't figure out boundaries
+        if(!this.h['Content-Type'] && !this.hack['no-content-type']) this.h['Content-Type']='application/json';
         return r('PUT', this.u, d, this.h, this.c); // return a promise
     }
     post(d){
-        if(!this.h['Content-Type']) this.h['Content-Type']='application/json';
+        if(!this.h['Content-Type'] && !this.hack['no-content-type']) this.h['Content-Type']='application/json';
         return r('POST', this.u, d, this.h, this.c); //return a promise
     }
     delete(){
