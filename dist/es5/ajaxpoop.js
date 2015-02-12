@@ -52,7 +52,7 @@ var req = (function () {
         this.u = u;
         this.h = {};
         this.c = false;
-        this.hack = {};
+        this.p = {};
     }
 
     _prototypeProperties(req, null, {
@@ -73,8 +73,8 @@ var req = (function () {
             configurable: true
         },
         hack: {
-            value: function hack(k, v) {
-                this.hack[k] = v;
+            value: function hack(k) {
+                this.p[k] = true;
                 return this;
             },
             writable: true,
@@ -92,7 +92,7 @@ var req = (function () {
             value: function put(d) {
                 //if you don't say so it's json. why would you send anything else seriously
                 //unless you're chome and can't figure out boundaries
-                if (!this.h["Content-Type"] && !this.hack["no-content-type"]) this.h["Content-Type"] = "application/json";
+                if (!this.h["Content-Type"] && !this.p["no-content-type"]) this.h["Content-Type"] = "application/json";
                 return r("PUT", this.u, d, this.h, this.c); // return a promise
             },
             writable: true,
@@ -100,7 +100,7 @@ var req = (function () {
         },
         post: {
             value: function post(d) {
-                if (!this.h["Content-Type"] && !this.hack["no-content-type"]) this.h["Content-Type"] = "application/json";
+                if (!this.h["Content-Type"] && !this.p["no-content-type"]) this.h["Content-Type"] = "application/json";
                 return r("POST", this.u, d, this.h, this.c); //return a promise
             },
             writable: true,

@@ -41,7 +41,7 @@ class req{
         this.u = u;
         this.h = {};
         this.c = false;
-        this.hack = {};
+        this.p = {};
     }
     header(k,v){
         this.h[k]=v; //add the (turtle)header map
@@ -51,8 +51,8 @@ class req{
         this.c=c; //with cors credentials
         return this; //chain the poop
     }
-    hack(k,v){
-        this.hack[k]=v;
+    hack(k){
+        this.p[k]=true;
         return this;
     }
     get(){
@@ -62,11 +62,11 @@ class req{
     put(d){
         //if you don't say so it's json. why would you send anything else seriously
         //unless you're chome and can't figure out boundaries
-        if(!this.h['Content-Type'] && !this.hack['no-content-type']) this.h['Content-Type']='application/json';
+        if(!this.h['Content-Type'] && !this.p['no-content-type']) this.h['Content-Type']='application/json';
         return r('PUT', this.u, d, this.h, this.c); // return a promise
     }
     post(d){
-        if(!this.h['Content-Type'] && !this.hack['no-content-type']) this.h['Content-Type']='application/json';
+        if(!this.h['Content-Type'] && !this.p['no-content-type']) this.h['Content-Type']='application/json';
         return r('POST', this.u, d, this.h, this.c); //return a promise
     }
     delete(){
