@@ -2,7 +2,7 @@
 function r(m,u,d,h,c){
     return new Promise((resolve,rejext)=>{
         let x  = new XMLHttpRequest();
-        x.open(m.toUpperCase(),u,true);
+        x.open(m,u,true);
 
         //only care when we're done the rest of these can suck it
         x.onreadystatechange=((e)=>{
@@ -13,10 +13,12 @@ function r(m,u,d,h,c){
                 case 3:
                     break;
                 case 4:
+                    //return the entire xhr object because having to do xhr.response is so worth
+                    //being able to also do xhr.status xhr.getResponseHeader xhr.fuckyourface
                     resolve(x);
             }
         });
-        //fffffffffuck
+        //welp
         x.ontimeout = ((e)=>{
             reject('timed out');
         });
@@ -35,7 +37,7 @@ function r(m,u,d,h,c){
     });
 }
 
-//every time we poop(), we shit out a new requiest object
+//every time we poop(), we shit out a new request object
 class req{
     constructor(u){
         this.u = u;
@@ -44,7 +46,7 @@ class req{
         this.p = {};
     }
     header(k,v){
-        this.h[k]=v; //add the (turtle)header map
+        this.h[k]=v; //add to the (turtle)header map
         return this; //return itself for chaining
     }
     withCredentials(c){
@@ -52,7 +54,7 @@ class req{
         return this; //chain the poop
     }
     hack(k){
-        this.p[k]=true;
+        this.p[k]=true; //a flag of random horseshit fuck you
         return this;
     }
     get(){
@@ -61,7 +63,7 @@ class req{
     }
     put(d){
         //if you don't say so it's json. why would you send anything else seriously
-        //unless you're chome and can't figure out boundaries
+        //unless you're chrome and can't figure out boundaries
         if(!this.h['Content-Type'] && !this.p['no-content-type']) this.h['Content-Type']='application/json';
         return r('PUT', this.u, d, this.h, this.c); // return a promise
     }
@@ -77,7 +79,7 @@ class req{
     }
 }
 
-//this file is an ass because its default function is to poop
+//this file is ass because its default function is to poop
 export default function poop(u){
     return new req(u)
 }
