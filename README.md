@@ -40,4 +40,4 @@ ajax('http://google.com')
 });
 ```
 ##don't have es6
-in the es5 folder there is a version transpiled to es5 using 6to5. you can use the 6to5 polyfill or another promises polyfill, but 9.81 jiggawatts marty welcome to the future maybe you'll enjoy not thrashing around in asynchronous callback hell
+in the release, there is a version transpiled to es5 using 6to5 (ajaxpoop-es5.js). you can use the 6to5 polyfill or any other promises polyfill, but 9.81 jiggawatts marty welcome to the future maybe you'll enjoy not thrashing around in asynchronous callback hell
