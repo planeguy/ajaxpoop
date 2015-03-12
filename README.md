@@ -37,6 +37,8 @@ ajax('http://google.com')
 .then((xhr)=>{
     if(xhr.status===304) console.log('unchanged.');
     else console.log('changed!');
+}).catch((err)=>{
+    console.log('dammit');
 });
 ```
 ##don't have es6
