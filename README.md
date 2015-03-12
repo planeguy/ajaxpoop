@@ -3,17 +3,17 @@ because i don't like your ajax microframework i need headers and status dammit
 
 ##use
 ```js
-import ajax from 'vendor/ajaxpoop';
+import poop from 'vendor/ajaxpoop';
 ```
 ```js
-ajax('http://google.com')
+poop('http://google.com')
 .get()
 .then((xhr)=>{
     console.log(xhr.response);
 });
 ```
 ```js
-ajax('http://my-service/things/3')
+poop('http://my-service/things/3')
 .put(thing)
 .then((xhr)=>{
     if(xhr.status=200) console.log('saved!');
@@ -21,7 +21,7 @@ ajax('http://my-service/things/3')
 });
 ```
 ```js
-ajax('http://my-service/things')
+poop('http://my-service/things')
 .header('Accept', 'application/json')
 .useCredentials(true)
 .post(thing)
@@ -31,7 +31,7 @@ ajax('http://my-service/things')
 });
 ```
 ```js
-ajax('http://google.com')
+poop('http://google.com?manageyourownurlstuff=yes#upyours')
 .header('If-Modified-Since','2015-02-01T13:53:00.000Z')
 .get()
 .then((xhr)=>{
