@@ -54,7 +54,7 @@ class req{
         return this; //chain the poop
     }
     hack(k){
-        this.p[k]=true; //a flag of random horseshit fuck you
+        this.p[k]=true; //a flag of random horseshit fuck you php
         return this;
     }
     get(){
@@ -72,14 +72,14 @@ class req{
         return r('POST', this.u, d, this.h, this.c); //return a promise
     }
     delete(){
-        return r('DELETE', this.u, undefined, this.h, this.c); //promise drill
+        return r('DELETE', this.u, undefined, this.h, this.c); //promises promises
     }
     flush(){
         return this.delete();
     }
 }
 
-//this file is ass because its default function is to poop
+//this file is ass because all that comes out is poop
 export default function poop(u){
     return new req(u)
 }
