@@ -20,7 +20,7 @@ function r(m,u,d,h,c){
         });
         //welp
         x.ontimeout = ((e)=>{
-            reject('timed out');
+            rejext('timed out');
         });
 
         //half the reason i did this is because these micro frameworks don't let me set headers
