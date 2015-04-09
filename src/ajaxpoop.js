@@ -22,7 +22,6 @@ function r(m,u,d,h,c){
         x.ontimeout = ((e)=>{
             rejext('timed out');
         });
-
         //half the reason i did this is because these micro frameworks don't let me set headers
         let ks=Object.keys(h).filter((j)=>{return h.hasOwnProperty(j);});
         ks.map((k)=>{
@@ -57,29 +56,46 @@ class req{
         this.p[k]=true; //a flag of random horseshit fuck you
         return this;
     }
-    get(){
-        //return a promise
-        return r('GET', this.u,  undefined, this.h, this.c);
+    getlike(m){
+        //return a promise for getting
+        return r(m, this.u,  undefined, this.h, this.c);
     }
-    put(d){
+    putlike(m){
         //if you don't say so it's json. why would you send anything else seriously
         //unless you're chrome and can't figure out boundaries
         if(!this.h['Content-Type'] && !this.p['no-content-type']) this.h['Content-Type']='application/json';
-        return r('PUT', this.u, d, this.h, this.c); // return a promise
+        return r(m, this.u, d, this.h, this.c); // return a promise
+    }
+    get(){
+        return getlike('GET');
+    }
+    put(d){
+        return putlike('PUT');
     }
     post(d){
-        if(!this.h['Content-Type'] && !this.p['no-content-type']) this.h['Content-Type']='application/json';
-        return r('POST', this.u, d, this.h, this.c); //return a promise
+        return putlike('POST');
+    }
+    patch(d){
+        return putlike('PATCH');
+    }
+    head(){
+        return getlike('HEAD');
+    }
+    trace(){
+        return getlike('TRACE');
+    }
+    options(){
+        return getlike('OPTIONS');
     }
     delete(){
-        return r('DELETE', this.u, undefined, this.h, this.c); //promise drill
+        return getlike('DELETE');
     }
     flush(){
-        return this.delete();
+        return this.delete(); //har har
     }
 }
 
-//this file is ass because its default function is to poop
+//this file is ass because the thing that comes out is poop
 export default function poop(u){
     return new req(u)
 }
