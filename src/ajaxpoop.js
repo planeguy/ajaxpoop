@@ -67,28 +67,28 @@ class req{
         return r(m, this.u, d, this.h, this.c); // return a promise
     }
     get(){
-        return getlike('GET');
+        return this.getlike('GET');
     }
     put(d){
-        return putlike('PUT');
+        return this.putlike('PUT');
     }
     post(d){
-        return putlike('POST');
+        return this.putlike('POST');
     }
     patch(d){
-        return putlike('PATCH');
+        return this.putlike('PATCH');
     }
     head(){
-        return getlike('HEAD');
+        return this.getlike('HEAD');
     }
     trace(){
-        return getlike('TRACE');
+        return this.getlike('TRACE');
     }
     options(){
-        return getlike('OPTIONS');
+        return this.getlike('OPTIONS');
     }
     delete(){
-        return getlike('DELETE');
+        return this.getlike('DELETE');
     }
     flush(){
         return this.delete(); //har har
