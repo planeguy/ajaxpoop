@@ -1,11 +1,11 @@
 var gulp = require('gulp'),
-    to5 = require('gulp-6to5'),
+    babel = require('gulp-babel'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename');
 
 gulp.task('to5', function(){
     return gulp.src('../src/**/*')
-    .pipe(to5())
+    .pipe(babel({modules:'umd'}))
     .pipe(uglify())
     .pipe(rename(function(path){
         path.basename+='-es5';
@@ -14,7 +14,6 @@ gulp.task('to5', function(){
 
 gulp.task('dist', function(){
     return gulp.src('../src/**/*')
-    //.pipe(uglify())
     .pipe(gulp.dest('../dist'));
 });
 
