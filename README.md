@@ -42,4 +42,4 @@ poop('http://google.com?manageyourownurlstuff=yes#upyours')
 });
 ```
 ##don't have es6
-in the release, there is a version transpiled to es5 using 6to5 (ajaxpoop-es5.js). you can use the 6to5 polyfill or any other promises polyfill, but 9.81 jiggawatts marty welcome to the future maybe you'll enjoy not thrashing around in asynchronous callback hell
+in the release, there is a version transpiled to es5 using <s>6to5</s>babel (ajaxpoop-es5.js). the only thing in the babel polyfill I actually use is promises, so you can use the babel polyfill if you like large js files **or** you can use *any other* promises polyfill (I like to [lie](https://github.com/calvinmetcalf/lie)), but more importantly 9.81 jiggawatts marty welcome to the fucking future maybe you'll enjoy not thrashing around in asynchronous callback hell
