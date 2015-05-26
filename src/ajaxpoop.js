@@ -4,35 +4,23 @@ function r(m,u,d,h,c){
         let x  = new XMLHttpRequest();
         x.open(m,u,true);
 
-        //only care when we're done the rest of these can suck it
+        //only care when we're done the other events can suck it
         x.onreadystatechange=((e)=>{
             switch(x.readyState){
-                case 0:
-                case 1:
-                case 2:
-                case 3:
-                    break;
                 case 4:
-                    //return the entire xhr object because having to do xhr.response is so worth
+                    //return the entire xhr object because the extra work of xhr.response is so worth
                     //being able to also do xhr.status xhr.getResponseHeader xhr.fuckyourface
                     resolve(x);
             }
         });
-        //welp
-        x.ontimeout = ((e)=>{
-            rejext('timed out');
-        });
-        //half the reason i did this is because these micro frameworks don't let me set headers
-        let ks=Object.keys(h).filter((j)=>{return h.hasOwnProperty(j);});
-        ks.map((k)=>{
+        //welp timed out
+        x.ontimeout = ((e)=>{rejext('timed out');});
+        //half the reason i did this is because these micro frameworks don't let me set or see headers easily
+        let ks=Object.getOwnPropertyNames(h).map((k)=>{
             x.setRequestHeader(k,h[k]);
         });
-        if(c) x.withCredentials=c;
-
-        if(d){
-            if(h['Content-Type']=='application/json') x.send(JSON.stringify(d));
-            else x.send(d);
-        } else x.send();
+        x.withCredentials=c;
+        if(d && h['Content-Type']=='application/json') x.send(JSON.stringify(d)); else x.send(d);
     });
 }
 
@@ -43,55 +31,33 @@ class req{
         this.h = {};
         this.c = false;
         this.p = {};
+        
+        let gets = ['get','head','trace','options','delete'];
+        let puts = ['put','post','patch'];
+        gets.forEach((g)=>{ this[g]=()=>{return this.getlike(g.toUpperCase());} });
+        puts.forEach((p)=>{ this[p]=(d)=>{return this.putlike(p.toUpperCase(),d);} });
     }
     header(k,v){
-        this.h[k]=v; //add to the (turtle)header map
+        this.h[k]=v; //add to the header map
         return this; //return itself for chaining
     }
-    withCredentials(c){
+    withCred(c){
         this.c=c; //with cors credentials
         return this; //chain the poop
     }
     hack(k){
         this.p[k]=true; //a flag of random horseshit fuck you
-        return this;
+        return this; //poop chain
     }
     getlike(m){
         //return a promise for getting
         return r(m, this.u,  undefined, this.h, this.c);
     }
-    putlike(m){
-        //if you don't say so it's json. why would you send anything else seriously
+    putlike(m,d){
+        //if you don't say so it's json. why would you send anything else like seriously
         //unless you're chrome and can't figure out boundaries
         if(!this.h['Content-Type'] && !this.p['no-content-type']) this.h['Content-Type']='application/json';
         return r(m, this.u, d, this.h, this.c); // return a promise
-    }
-    get(){
-        return this.getlike('GET');
-    }
-    put(d){
-        return this.putlike('PUT');
-    }
-    post(d){
-        return this.putlike('POST');
-    }
-    patch(d){
-        return this.putlike('PATCH');
-    }
-    head(){
-        return this.getlike('HEAD');
-    }
-    trace(){
-        return this.getlike('TRACE');
-    }
-    options(){
-        return this.getlike('OPTIONS');
-    }
-    delete(){
-        return this.getlike('DELETE');
-    }
-    flush(){
-        return this.delete(); //har har
     }
 }
 
