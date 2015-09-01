@@ -25,7 +25,7 @@ function r(m,u,d,h,c){
 }
 
 //every time we poop(), we shit out a new request object
-class req{
+class Req{
     constructor(u){
         this.u = u;
         this.h = {};
@@ -63,5 +63,5 @@ class req{
 
 //this file is ass because the thing that comes out is poop
 export default function poop(u){
-    return new req(u)
+    return new Req(u)
 }
