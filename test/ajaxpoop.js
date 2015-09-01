@@ -11,7 +11,7 @@ function r(m,u,d,h,c,s){
                     //return the entire xhr object because the extra work of xhr.response is so worth
                     //being able to also do xhr.status xhr.getResponseHeader xhr.fuckyourface
                     if(!!s && !!s(x)) {
-                        let e=new Error('ajaxpoop error '+x.status);
+                        let e=new Error('http error '+x.status);
                         e.xhr=x; e.status=x.status;
                         rejext(e);
                     }else resolve(x);
@@ -29,7 +29,7 @@ function r(m,u,d,h,c,s){
 }
 
 //every time we poop(), we shit out a new request object
-class Req{
+class req{
     constructor(u){
         this.u = u;
         this.h = {};
@@ -50,6 +50,10 @@ class Req{
         this.c=c; //with cors credentials
         return this; //chain the poop
     }
+    hack(k){
+        this.p[k]=true; //a flag of random horseshit fuck you
+        return this; //poop chain
+    }
     getlike(m){
         //return a promise for getting
         return r(m, this.u,  undefined, this.h, this.c, this.s);
@@ -68,5 +72,5 @@ class Req{
 
 //this file is ass because the thing that comes out is poop
 export default function poop(u){
-    return new Req(u)
+    return new req(u)
 }

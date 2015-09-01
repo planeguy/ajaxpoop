@@ -3,12 +3,23 @@
 <script src="./lie.min.js"></script>
 <script src="./ajaxpoop-es5.js"></script>
 <body>
-    <h1 id="result"></h1>
+    <h1 id="good-result" style="color:darkgreen;"></h1>
+    <h1 id="bad-result" style="color:red;"></h1>
     <script>
         ajaxpoop('http://delek.org').header("Content-Type","text/text").post("text")
         .then(function(xhr){
             console.log(xhr.status);
-            document.getElementById('result').innerText=xhr.status;
+            document.getElementById('good-result').innerText=xhr.status;
+        });
+        
+        ajaxpoop('http://delek.org/').header("Content-Type","text/text").errorOn(function(x){return x.status===200;}).post("text")
+        .then(function(xhr){
+            console.log(xhr.status);
+            document.getElementById('bad-result').innerText=xhr.status;
+        }).catch(function(err){
+            if(err.xhr) {
+                document.getElementById('bad-result').innerText=err.message + ', ' + err.xhr.status;
+            }
         });
     </script>
 </body>
