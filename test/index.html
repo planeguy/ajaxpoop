@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<script src="./lie.min.js"></script>
+<script src="./ajaxpoop-es5.js"></script>
+<body>
+    <h1 id="result"></h1>
+    <script>
+        ajaxpoop('http://delek.org').header("Content-Type","text/text").post("text")
+        .then(function(xhr){
+            console.log(xhr.status);
+            document.getElementById('result').innerText=xhr.status;
+        });
+    </script>
+</body>
+</html>
