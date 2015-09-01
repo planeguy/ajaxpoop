@@ -12,7 +12,7 @@
             document.getElementById('good-result').innerText=xhr.status;
         });
         
-        ajaxpoop('http://delek.org/').header("Content-Type","text/text").errorOn(function(s){return s===200;}).post("text")
+        ajaxpoop('http://delek.org/').header("Content-Type","text/text").errorOn(function(x){return x.status===200;}).post("text")
         .then(function(xhr){
             console.log(xhr.status);
             document.getElementById('bad-result').innerText=xhr.status;

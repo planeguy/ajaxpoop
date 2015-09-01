@@ -10,7 +10,7 @@ function r(m,u,d,h,c,s){
                 case 4:
                     //return the entire xhr object because the extra work of xhr.response is so worth
                     //being able to also do xhr.status xhr.getResponseHeader xhr.fuckyourface
-                    if(!!s && !!s(x.status)) {
+                    if(!!s && !!s(x)) {
                         let e=new Error('http error '+x.status);
                         e.xhr=x; e.status=x.status;
                         rejext(e);
