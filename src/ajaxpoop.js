@@ -16,7 +16,7 @@ function r(m,u,d,h,c){
         //welp timed out
         x.ontimeout = ((e)=>{rejext('timed out');});
         //half the reason i did this is because these micro frameworks don't let me set or see headers easily
-        let ks=Object.getOwnPropertyNames(h).map((k)=>{
+        Object.getOwnPropertyNames(h).forEach((k)=>{
             x.setRequestHeader(k,h[k]);
         });
         x.withCredentials=c;
@@ -25,7 +25,7 @@ function r(m,u,d,h,c){
 }
 
 //every time we poop(), we shit out a new request object
-class req{
+class Req{
     constructor(u){
         this.u = u;
         this.h = {};
@@ -45,10 +45,6 @@ class req{
         this.c=c; //with cors credentials
         return this; //chain the poop
     }
-    hack(k){
-        this.p[k]=true; //a flag of random horseshit fuck you
-        return this; //poop chain
-    }
     getlike(m){
         //return a promise for getting
         return r(m, this.u,  undefined, this.h, this.c);
@@ -63,5 +59,5 @@ class req{
 
 //this file is ass because the thing that comes out is poop
 export default function poop(u){
-    return new req(u)
+    return new Req(u)
 }
