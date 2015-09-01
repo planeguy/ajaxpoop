@@ -16,7 +16,7 @@ function r(m,u,d,h,c){
         //welp timed out
         x.ontimeout = ((e)=>{rejext('timed out');});
         //half the reason i did this is because these micro frameworks don't let me set or see headers easily
-        let ks=Object.getOwnPropertyNames(h).map((k)=>{
+        Object.getOwnPropertyNames(h).forEach((k)=>{
             x.setRequestHeader(k,h[k]);
         });
         x.withCredentials=c;
