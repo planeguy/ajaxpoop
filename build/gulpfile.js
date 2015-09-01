@@ -17,4 +17,9 @@ gulp.task('dist', function(){
     .pipe(gulp.dest('../dist'));
 });
 
-gulp.task('default',['dist','to5']);
+gulp.task('copy-to-test-folder', ['to5'], function(){
+    return gulp.src('../dist/**/*')
+    .pipe(gulp.dest('../test'));
+})
+
+gulp.task('default',['dist','to5','copy-to-test-folder']);
