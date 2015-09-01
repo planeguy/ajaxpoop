@@ -45,10 +45,6 @@ class Req{
         this.c=c; //with cors credentials
         return this; //chain the poop
     }
-    hack(k){
-        this.p[k]=true; //a flag of random horseshit fuck you
-        return this; //poop chain
-    }
     getlike(m){
         //return a promise for getting
         return r(m, this.u,  undefined, this.h, this.c);
