@@ -36,11 +36,6 @@ class Req{
         this.c = false;
         this.p = {};
         this.s = undefined;
-        
-        let gets=['get','head','trace','options','delete'];
-        let puts=['put','post','patch'];
-        gets.forEach((g)=>{ this[g]=()=>{return this.getlike(g.toUpperCase());} });
-        puts.forEach((p)=>{ this[p]=(d)=>{return this.putlike(p.toUpperCase(),d);} });
     }
     header(k,v){
         this.h[k]=v; //add to the header map
@@ -54,12 +49,20 @@ class Req{
         //return a promise for getting
         return r(m, this.u,  undefined, this.h, this.c, this.s);
     }
+    get() {return this.getlike('GET');}
+    head() {return this.getlike('HEAD');}
+    trace() {return this.getlike('TRACE');}
+    options() {return this.getlike('OPTIONS');}
+    delete() {return this.getlike('DELETE');}
     putlike(m,d){
         //if you don't say so it's json. why would you send anything else like seriously
         //unless you're chrome and can't figure out boundaries
         if(!this.h['Content-Type'] && !this.p['no-content-type']) this.h['Content-Type']='application/json';
         return r(m, this.u, d, this.h, this.c, this.s); // return a promise
     }
+    put(d) {return this.putlike('PUT', d);}
+    post(d) {return this.putlike('POST', d);}
+    patch(d) {return this.putlike('PATCH', d);}
     errorOn(s){
         this.s=s;
         return this;
