@@ -52,4 +52,6 @@ poop('http://google.com/some-bad-resource')
         
 ```
 ##don't have es6
-in the release, there is a version transpiled to es5 using <s>6to5</s>babel (ajaxpoop-es5.js). the only thing in the babel polyfill I actually use is promises, so you can use the babel polyfill if you like large js files **or** you can use *any other* promises polyfill (I like to [lie](https://github.com/calvinmetcalf/lie)), but more importantly 9.81 jiggawatts marty welcome to the fucking future maybe you'll enjoy not thrashing around in asynchronous callback hell
+in the release, there is a version transpiled to es5 using <s>6to5</s>babel (ajaxpoop-es5.js). the only thing in the babel polyfill I actually use is promises, so you can use the babel polyfill if you like large js files **or** you can use *any other* promises polyfill (I like to [lie](https://github.com/calvinmetcalf/lie)), but more importantly 9.81 jiggawatts marty welcome to the fucking future maybe you'll enjoy not thrashing around in asynchronous callback hell.
+
+but seriously it's 2016 just use jspm and rocket face-first into last year like a pro
