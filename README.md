@@ -49,7 +49,7 @@ poop('http://google.com/some-bad-resource')
     console.log('No error!');
 }).catch((err)=>{
     console.log('An error ocurred');
-    if(err.xhr && err.xhr.status===404) console.log('We get the xhr in there error so we can see if it\'s something we expect or not');
+    if(err.xhr && err.xhr.status===404) console.log('We get the xhr in the error so we can see if it\'s something we expect or not');
 });
         
 ```
