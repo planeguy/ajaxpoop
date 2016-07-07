@@ -45,9 +45,11 @@ poop('http://google.com?manageyourownurlstuff=yes#upyours')
 poop('http://google.com/some-bad-resource')
 .errorOn((xhr)=>{ return xhr.status===404; })
 .get((xhr)=>{
-    if(xhr.status===404) console.log('Will never log this message.');
+    if(xhr.status===404) console.log('You\'ll never see this because we error on 404s.');
+    console.log('No error!');
 }).catch((err)=>{
-    if(err.xhr && err.xhr.status===404) console.log('Four oh Four');
+    console.log('An error ocurred');
+    if(err.xhr && err.xhr.status===404) console.log('We get the xhr in there error so we can see if it's something we expect or not');
 });
         
 ```
